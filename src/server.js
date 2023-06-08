@@ -1,5 +1,6 @@
 import http from 'node:http'
 import { readJson } from './middleware/readJson.js'
+import { routes } from './routes.js'
 
 const server = http.createServer(async(req, res) =>{
 
@@ -7,24 +8,18 @@ const server = http.createServer(async(req, res) =>{
 
   await readJson(req, res)
 
-  if (method === 'GET' && url === '/tasks'){
-    res.end()
-  } 
+  const route = routes.find(route =>{
+    return route.method === method && route.path === url
+  })
 
-  if (method === 'POST' && url === '/tasks'){
+  if (route){
+    route.handler(req, res);
 
+  } else{
     res
-      .writeHead(201)
-      .end(JSON.stringify(req.body))
-
-  }
-
-  res
     .writeHead(404)
     .end()
-
-
-  
+  }
 
 })
 
