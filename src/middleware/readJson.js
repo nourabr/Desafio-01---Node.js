@@ -12,5 +12,7 @@ export async function readJson(req, res){
     req.body = null
   }
 
+  res.setHeader('Content-type', 'application/json')
+
 
 }
