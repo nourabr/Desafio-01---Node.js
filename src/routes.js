@@ -9,9 +9,9 @@ export const routes = [
     path: "/tasks",
     handler: (req, res) =>{
 
-      db.select('tasks')
+      const selected = db.select('tasks')
 
-      res.end()
+      res.end(JSON.stringify(selected))
     }
   },
   {
@@ -19,9 +19,9 @@ export const routes = [
     path: "/tasks",
     handler: (req, res) =>{
       
-      const test = db.insert('tasks', req.body)
+      db.insert('tasks', req.body)
     
-      console.log(test)
+      console.log(req.body)
 
       res
       .writeHead(201)

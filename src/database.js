@@ -7,11 +7,12 @@ export class Database{
   #persist(){}
 
   select(table){
-    return this.#database[table] ?? []
+    const data = this.#database[table] ?? []
+    return data
   }
 
   insert(table, data){
-    return this.#database[table] ? this.#database.push(data) : []
+    this.#database[table].push(data)
   }
 
 }
