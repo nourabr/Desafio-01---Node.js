@@ -45,10 +45,13 @@ export const routes = [
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) =>{
 
+      const { id } = req.params.groups
 
-      res
-      .writeHead(204)
-      .end()
+      const isDeleted = db.delete('tasks',id)
+
+      isDeleted ? res.writeHead(204) : res.writeHead(404)
+
+      res.end()
     }
   }
 
