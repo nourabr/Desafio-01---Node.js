@@ -28,9 +28,9 @@ export const routes = [
         id: randomUUID(),
         title,
         description,
+        updated_at: date.toLocaleString('pt-BR'),
         created_at: date.toLocaleString('pt-BR'),
-        completed_at: null,
-        updated_at:date.toLocaleString('pt-BR')
+        completed_at: null
       }
 
       db.insert('tasks', task)
@@ -47,11 +47,29 @@ export const routes = [
 
       const { id } = req.params.groups
 
-      const isDeleted = db.delete('tasks',id)
-
-      isDeleted ? res.writeHead(204) : res.writeHead(404)
+      db.delete('tasks',id) ? res.writeHead(204) : res.writeHead(404)
 
       res.end()
+    }
+  },
+  { // Atualização de Tarefas
+    method: "PUT",
+    path: buildRoutePath("/tasks/:id"),
+    handler: (req, res) =>{
+
+      const { title, description } = req.body
+      const { id } = req.params.groups
+      
+      const body = {
+        title,
+        description,
+        updated_at: date.toLocaleString('pt-BR')
+      }
+
+      db.update('tasks', id, body) ? res.writeHead(204) : res.writeHead(404)
+
+      res
+        .end()
     }
   }
 
