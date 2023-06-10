@@ -1,9 +1,7 @@
 import { Database } from "./database.js"
-import { randomUUID } from 'node:crypto'
 import { buildRoutePath } from './utils/buildRoutePath.js'
 
 const db = new Database();
-const date = new Date();
 
 export const routes = [
 
@@ -25,12 +23,8 @@ export const routes = [
       const { title, description } = req.body
       
       const task = {
-        id: randomUUID(),
         title,
-        description,
-        updated_at: date.toLocaleString('pt-BR'),
-        created_at: date.toLocaleString('pt-BR'),
-        completed_at: null
+        description, 
       }
 
       db.insert('tasks', task)
@@ -63,7 +57,6 @@ export const routes = [
       const body = {
         title,
         description,
-        updated_at: date.toLocaleString('pt-BR')
       }
 
       db.update('tasks', id, body) ? res.writeHead(204) : res.writeHead(404)

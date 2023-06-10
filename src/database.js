@@ -32,7 +32,16 @@ export class Database{
   }
 
   insert(table, data){
-    this.#database[table].push(data)
+
+    const body = {
+      id: randomUUID(),
+      ...data,
+      created_at: new Date().toLocaleString('pt-BR'),
+      updated_at: new Date().toLocaleString('pt-BR'),
+      completed_at: null
+    }
+
+    this.#database[table].push(body)
     this.#persist()
   }
 
@@ -52,8 +61,6 @@ export class Database{
 
   update(table, id, data){
 
-    const date = new Date();
-
     const rowIndex = this.#database[table].findIndex(row => row.id === id)
 
     if (rowIndex > -1){
@@ -69,8 +76,8 @@ export class Database{
           id,
           ...data,
           created_at,
-          completed_at,
-          updated_at: date.toLocaleString('pt-BR')
+          updated_at: new Date().toLocaleString('pt-BR'),
+          completed_at
         }
       
       this.#persist()
