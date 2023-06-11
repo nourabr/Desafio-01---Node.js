@@ -65,21 +65,38 @@ export class Database{
 
     if (rowIndex > -1){
 
-      const { 
-          created_at,
-          completed_at,
-          updated_at 
-        } = this.#database[table][rowIndex]
+      const { created_at, completed_at,} = this.#database[table][rowIndex]
 
-      this.#database[table][rowIndex] = 
-        {
-          id,
-          ...data,
-          created_at,
-          updated_at: new Date().toLocaleString('pt-BR'),
-          completed_at
-        }
+      this.#database[table][rowIndex] = {
+
+        id,
+        ...data,
+        created_at,
+        updated_at: new Date().toLocaleString('pt-BR'),
+        completed_at,
+      }
       
+      
+      this.#persist()
+      return true
+
+    } else{
+      return false
+    }
+
+  }
+
+  complete(table, id){
+
+    const rowIndex = this.#database[table].findIndex(row => row.id === id)
+
+    if (rowIndex > -1){
+
+      this.#database[table][rowIndex]
+        .completed_at = new Date()
+        .toLocaleString('pt-BR')
+     
+
       this.#persist()
       return true
 

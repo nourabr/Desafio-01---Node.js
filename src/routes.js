@@ -41,7 +41,9 @@ export const routes = [
 
       const { id } = req.params.groups
 
-      db.delete('tasks',id) ? res.writeHead(204) : res.writeHead(406)
+      db.delete('tasks',id)
+      
+      ? res.writeHead(204) : res.writeHead(406)
 
       res.end()
     }
@@ -59,16 +61,23 @@ export const routes = [
         description,
       }
 
-      db.update('tasks', id, body) ? res.writeHead(204) : res.writeHead(406)
+      db.update('tasks', id, body)
+      
+      ? res.writeHead(204) : res.writeHead(406)
 
       res.end()
     }
   },
   { // Alterar status das Tarefas
     method: "PATCH",
-    path: buildRoutePath("/tasks/:id"),
+    path: buildRoutePath("/tasks/:id/complete"),
     handler: (req, res) =>{
 
+      const { id } = req.params.groups
+
+      db.complete('tasks', id) 
+
+      ? res.writeHead(204) : res.writeHead(406)
 
       res.end()
     }
