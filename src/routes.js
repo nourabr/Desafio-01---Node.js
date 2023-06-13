@@ -29,9 +29,13 @@ export const routes = [
 
       db.insert('tasks', task)
 
-      res
-      .writeHead(201)
-      .end(JSON.stringify(req.body))
+      if (!req.csv){
+        res
+          .writeHead(201)
+          .end(JSON.stringify(req.body))
+      } 
+
+      
     }
   },
   { // Exclusão de Tarefas

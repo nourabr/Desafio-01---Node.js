@@ -1,1 +1,1 @@
-{"tasks":[{"id":"6a157d77-e853-4f0e-89bb-bf59b815ddcd","title":"Criar o método de criação de tarefas","description":"O método de criação é simples, só é necessário fazer com que o servidor receba um json por completo, depois transfere para o middleware","created_at":"10/06/2023, 21:26:31","updated_at":"10/06/2023, 21:26:31","completed_at":"10/06/2023, 21:38:24"}]}
+{"tasks":[]}

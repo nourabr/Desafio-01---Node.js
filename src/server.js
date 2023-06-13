@@ -1,6 +1,7 @@
 import http from 'node:http'
 import { readJson } from './middleware/readJson.js'
 import { routes } from './routes.js'
+import { readCsv } from './middleware/readCsv.js'
 
 
 const server = http.createServer(async(req, res) =>{
@@ -19,7 +20,14 @@ const server = http.createServer(async(req, res) =>{
 
     req.params = routeParams
 
-    route.handler(req, res);
+    if (req.headers['content-type'] === 'text/csv') {
+
+      await readCsv(req, res, route)
+    
+    } else {
+      route.handler(req, res);
+    }
+
 
   } else{
     res
