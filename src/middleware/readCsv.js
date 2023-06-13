@@ -3,13 +3,16 @@ import { createReadStream } from 'node:fs'
 
 export async function readCsv(req, res, route){
 
+  const csvPath = new URL('../../spreadsheet.csv', import.meta.url)
+  
   // Usado para remover o cabeçalho da planilha
   let index = 0
 
   // Desabilita o res.end() em routes.js 
   req.csv = true;
 
-  createReadStream('spreadsheet.csv')
+
+  createReadStream(csvPath)
     .pipe(parse())
     .on('data', (line) => {
       
